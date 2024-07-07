@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { TresCanvas } from '@tresjs/core';
-import { shallowRef, watch } from 'vue';
-
+import {TresCanvas} from '@tresjs/core';
+import {shallowRef, watch} from 'vue';
 import gsap from 'gsap';
+import {Vector3} from "three";
 
 const boxesRef = shallowRef();
 const zs = [];
@@ -10,17 +10,25 @@ for (let z = -4.5; z <= 4.5; z++) {
     zs.push(z);
 }
 
+const camera = ref(null)
+const canvas = ref(null)
+
+const cameraBind = ref({
+    // position: [10, 10, 10],
+    // lookAt: [0, 0, 0]
+})
+
 watch(boxesRef, (v) => {
     //getting positions for all the boxes
-    const positions = Array.from(v.children).map(
-        (child) => child.position
-    );
+    // const positions = Array.from(v.children).map(
+    //     (child) => child.position
+    // );
     //getting rotations for all the boxes
     const rotations = Array.from(v.children).map(
         (child) => child.rotation
     );
 
-    v.children.forEach((child) => child.scale.set(0,0,0))
+    v.children.forEach((child) => child.scale.set(0, 0, 0))
     const opacities = Array.from(v.children).map(
         (child) => child.scale
     );
@@ -37,11 +45,11 @@ watch(boxesRef, (v) => {
     };
     gsap.to(opacities,
         {
-        y: 1,
-        x: 1,
-        z: 1,
-        ...animProperties,
-    }
+            y: 1,
+            x: 1,
+            z: 1,
+            ...animProperties,
+        }
     );
     animProperties.stagger.repeat = 1
     gsap.to(rotations, {
@@ -49,17 +57,21 @@ watch(boxesRef, (v) => {
         ...animProperties,
     });
 });
+
+
 </script>
 
 <template>
-    <TresCanvas clear-color="#82DBC5" window-size>
-        <TresPerspectiveCamera />
+    <button class="fixed z-10" id="lock">Lock</button>
+    <TresCanvas ref="canvas" clear-color="#82DBC5" window-size>
+        <TresPerspectiveCamera ref="camera" v-bind="cameraBind"/>
+        <OrbitControls/>
         <TresGroup ref="boxesRef">
-            <TresMesh v-for="(z, i) of zs" :key="i" :position="[0, 0.5, z]">
-                <TresBoxGeometry />
-                <TresMeshNormalMaterial />
+            <TresMesh v-for="(z, i) of zs" :key="i" :position="new Vector3(0, 0.5, z)">
+                <TresBoxGeometry/>
+                <TresMeshNormalMaterial/>
             </TresMesh>
         </TresGroup>
-        <TresGridHelper :args="[10, 10, 0x444444, 'teal']" />
+        <TresGridHelper :args="[10, 10, 0x444444, 'teal']"/>
     </TresCanvas>
 </template>
