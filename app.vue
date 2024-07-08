@@ -3,6 +3,8 @@ import {TresCanvas} from '@tresjs/core';
 import {shallowRef, watch} from 'vue';
 import gsap from 'gsap';
 import {Vector3} from "three";
+import getFundament from "/utils/getFundament";
+
 
 const boxesRef = shallowRef();
 const zs = [];
@@ -58,17 +60,31 @@ watch(boxesRef, (v) => {
     });
 });
 
+const Buffer = getFundament()
+const {position, normal, uv} = Buffer.attributes
+console.log(Buffer)
+
+
+
 
 </script>
 
 <template>
-    <button class="fixed z-10" id="lock">Lock</button>
     <TresCanvas ref="canvas" clear-color="#82DBC5" window-size>
-        <TresPerspectiveCamera ref="camera" v-bind="cameraBind"/>
+        <TresPerspectiveCamera ref="camera" v-bind="cameraBind" :far="1000000"/>
         <OrbitControls/>
+        <TresGroup>
+            <TresMesh>
+
+
+                <TresBoxGeometry :attributes="Buffer.attributes"/>
+
+                <TresMeshNormalMaterial/>
+            </TresMesh>
+        </TresGroup>
         <TresGroup ref="boxesRef">
             <TresMesh v-for="(z, i) of zs" :key="i" :position="new Vector3(0, 0.5, z)">
-                <TresBoxGeometry/>
+                <TresBoxGeometry />
                 <TresMeshNormalMaterial/>
             </TresMesh>
         </TresGroup>
