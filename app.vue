@@ -16,7 +16,7 @@ const camera = ref(null)
 const canvas = ref(null)
 
 const cameraBind = ref({
-    // position: [10, 10, 10],
+    position: [10000, 10000, 10000],
     // lookAt: [0, 0, 0]
 })
 
@@ -77,9 +77,9 @@ console.log(Buffer)
             <TresMesh>
 
 
-                <TresBoxGeometry :attributes="Buffer.attributes"/>
+                <TresPolyhedronGeometry :attributes="Buffer.attributes"/>
 
-                <TresMeshNormalMaterial/>
+                <TresMeshNormalMaterial :side="2"/>
             </TresMesh>
         </TresGroup>
         <TresGroup ref="boxesRef">

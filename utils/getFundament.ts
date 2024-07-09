@@ -28,41 +28,41 @@ export default function () {
 
     const B = {pos: [depth, 0, 0], norm: [0, 0, 1], uv: [depth / fullDepth, 0],}
     const B1 = {pos: [depth, height, 0], norm: [0, 0, 1], uv: [depth / fullDepth, 1],}
-    const ABB1 = [A, B, B1]
+    const ABB1 = [B, A, B1]
     const AA1B1 = [A, A1, B1]
 
     const C = {pos: [depth, 0, sideWidthLeft], norm: [1, 0, 0], uv: [sideWidthLeft / fullWidth, 0],}
     const C1 = {pos: [depth, height, sideWidthLeft], norm: [1, 0, 0], uv: [sideWidthLeft / fullWidth, 1],}
-    const BCC1 = [B, C, C1]
+    const BCC1 = [C, B,  C1]
     const BB1C1 = [B, B1, C1]
 
     const D = {pos: [fullDepth, 0, sideWidthLeft], norm: [0, 0, 1], uv: [erkerDepth / fullDepth, 0],}
     const D1 = {pos: [fullDepth, height, sideWidthLeft], norm: [0, 0, 1], uv: [erkerDepth / fullDepth, 1],}
-    const CDD1 = [C, D, D1]
+    const CDD1 = [D,C,  D1]
     const CC1D1 = [C, C1, D1]
 
     const E = {pos: [fullDepth, 0, sideWidthLeft + erkerWidth], norm: [1, 0, 0], uv: [erkerWidth / fullWidth, 0],}
     const E1 = {pos: [fullDepth, height, sideWidthLeft + erkerWidth], norm: [1, 0, 0], uv: [erkerWidth / fullWidth, 1],}
-    const DEE1 = [D, E, E1]
+    const DEE1 = [E, D,  E1]
     const DD1E1 = [D, D1, E1]
 
     const F = {pos: [depth, 0, sideWidthLeft + erkerWidth], norm: [0, 0, 1], uv: [erkerDepth / fullDepth, 0],}
     const F1 = {pos: [depth, height, sideWidthLeft + erkerWidth], norm: [0, 0, 1], uv: [erkerDepth / fullDepth, 1],}
-    const EFF1 = [E, F, F1]
+    const EFF1 = [F, E,  F1]
     const EE1F1 = [E, E1, F1]
 
     const G = {pos: [depth, 0, fullWidth], norm: [1, 0, 0], uv: [sideWidthRight / fullWidth, 0],}
     const G1 = {pos: [depth, height, fullWidth], norm: [1, 0, 0], uv: [sideWidthRight / fullWidth, 1],}
-    const FGG1 = [F, G, G1]
+    const FGG1 = [G, F,  G1]
     const FF1G1 = [F, F1, G1]
 
     const H = {pos: [0, 0, fullWidth], norm: [0, 0, 1], uv: [depth / fullDepth, 0],}
     const H1 = {pos: [0, height, fullWidth], norm: [0, 0, 1], uv: [depth / fullDepth, 1],}
-    const GHH1 = [G, H, H1]
+    const GHH1 = [H, G,  H1]
     const GG1H1 = [G, G1, H1]
 
-    const HAA1 = [H, A, A1]
-    const HH1A1 = [H, H1, H1]
+    const HAA1 = [A, H,  A1]
+    const HH1A1 = [H, H1, A1]
 
     //             z
     //    0________________
@@ -84,7 +84,7 @@ export default function () {
         ...EFF1, ...EE1F1,
         ...FGG1, ...FF1G1,
         ...GHH1, ...GG1H1,
-        ...HAA1, ...HH1A1,
+        ...HH1A1, ...HAA1,
     ]
 
     const positions = [];
