@@ -17,7 +17,7 @@ const canvas = ref(null)
 
 const cameraBind = ref({
     position: [10000, 10000, 10000],
-    // lookAt: [0, 0, 0]
+    // lookAt: [5000, -5000, 5000]
 })
 
 watch(boxesRef, (v) => {
@@ -54,10 +54,10 @@ watch(boxesRef, (v) => {
         }
     );
     animProperties.stagger.repeat = 1
-    gsap.to(rotations, {
-        x: 2,
-        ...animProperties,
-    });
+    // gsap.to(rotations, {
+    //     x: 2,
+    //     ...animProperties,
+    // });
 });
 
 const Buffer = getFundament()
@@ -74,18 +74,19 @@ console.log(Buffer)
         <TresPerspectiveCamera ref="camera" v-bind="cameraBind" :far="1000000"/>
         <OrbitControls/>
         <TresGroup>
+
+        </TresGroup>
+        <TresGroup ref="boxesRef">
+            <TresMesh v-for="(z, i) of zs" :key="i" :position="new Vector3(0, 0.5, z)">
+                <TresBoxGeometry />
+                <TresMeshNormalMaterial/>
+            </TresMesh>
             <TresMesh>
 
 
                 <TresPolyhedronGeometry :attributes="Buffer.attributes"/>
 
                 <TresMeshNormalMaterial :side="2"/>
-            </TresMesh>
-        </TresGroup>
-        <TresGroup ref="boxesRef">
-            <TresMesh v-for="(z, i) of zs" :key="i" :position="new Vector3(0, 0.5, z)">
-                <TresBoxGeometry />
-                <TresMeshNormalMaterial/>
             </TresMesh>
         </TresGroup>
         <TresGridHelper :args="[10, 10, 0x444444, 'teal']"/>

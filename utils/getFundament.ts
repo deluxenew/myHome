@@ -85,6 +85,8 @@ export default function () {
         ...FGG1, ...FF1G1,
         ...GHH1, ...GG1H1,
         ...HH1A1, ...HAA1,
+        B1,G1,A1, H1,G1,A1,
+        D1,E1,C1, F1, E1,C1,
     ]
 
     const positions = [];
