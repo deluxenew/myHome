@@ -18,7 +18,8 @@
     "three": "^0.166.1",
     "typescript": "^5.4.5",
     "vue": "latest",
-    "vue-tsc": "^1.8.27"
+    "vue-tsc": "^1.8.27",
+    "three-bvh-csg": "^0.0.16"
   },
   "devDependencies": {
     "@vueuse/core": "^10.11.0",

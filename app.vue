@@ -2,8 +2,14 @@
 import {TresCanvas} from '@tresjs/core';
 import {shallowRef, watch} from 'vue';
 import gsap from 'gsap';
-import {Vector3} from "three";
+import {
+    BasicShadowMap,
+    Vector3,
+    SRGBColorSpace,
+    NoToneMapping,
+} from "three";
 import getFundament from "/utils/getFundament";
+import getWalls from "/utils/getWalls";
 
 
 const boxesRef = shallowRef();
@@ -16,20 +22,11 @@ const camera = ref(null)
 const canvas = ref(null)
 
 const cameraBind = ref({
-    position: [10000, 10000, 10000],
-    // lookAt: [5000, -5000, 5000]
+    position: [20000, 10000, 20000],
+    lookAt: new Vector3(5000, 0, 5000)
 })
 
 watch(boxesRef, (v) => {
-    //getting positions for all the boxes
-    // const positions = Array.from(v.children).map(
-    //     (child) => child.position
-    // );
-    //getting rotations for all the boxes
-    const rotations = Array.from(v.children).map(
-        (child) => child.rotation
-    );
-
     v.children.forEach((child) => child.scale.set(0, 0, 0))
     const opacities = Array.from(v.children).map(
         (child) => child.scale
@@ -54,41 +51,36 @@ watch(boxesRef, (v) => {
         }
     );
     animProperties.stagger.repeat = 1
-    // gsap.to(rotations, {
-    //     x: 2,
-    //     ...animProperties,
-    // });
 });
 
-const Buffer = getFundament()
-const {position, normal, uv} = Buffer.attributes
-console.log(Buffer)
+const fundaments = getFundament()
+const walls = getWalls()
 
+const objects = ref([...fundaments, ...walls])
 
-
-
+const gl = {
+    clearColor: '#82DBC5',
+    shadows: true,
+    alpha: false,
+    shadowMapType: BasicShadowMap,
+    outputColorSpace: SRGBColorSpace,
+    toneMapping: NoToneMapping,
+}
 </script>
 
 <template>
-    <TresCanvas ref="canvas" clear-color="#82DBC5" window-size>
-        <TresPerspectiveCamera ref="camera" v-bind="cameraBind" :far="1000000"/>
-        <OrbitControls/>
-        <TresGroup>
+    <TresCanvas ref="canvas" clear-color="#82DBC5" window-size v-bind="gl" preset="realistic">
+        <TresPerspectiveCamera ref="camera" v-bind="cameraBind" :far="1000000" >
 
-        </TresGroup>
+        </TresPerspectiveCamera>
+        <OrbitControls :target="new Vector3(5000, 0, 5000)"/>
+        <TresDirectionalLight  :position="new Vector3(10000,10000,10000)" :intensity="1" cast-shadow>
+
+        </TresDirectionalLight>
         <TresGroup ref="boxesRef">
-            <TresMesh v-for="(z, i) of zs" :key="i" :position="new Vector3(0, 0.5, z)">
-                <TresBoxGeometry />
-                <TresMeshNormalMaterial/>
-            </TresMesh>
-            <TresMesh>
+            <TresObject3D v-bind="item" v-for="item in objects">
 
-
-                <TresPolyhedronGeometry :attributes="Buffer.attributes"/>
-
-                <TresMeshNormalMaterial :side="2"/>
-            </TresMesh>
+            </TresObject3D>
         </TresGroup>
-        <TresGridHelper :args="[10, 10, 0x444444, 'teal']"/>
     </TresCanvas>
 </template>
