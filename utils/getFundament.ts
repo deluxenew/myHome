@@ -133,7 +133,7 @@ const groundMagerial = new THREE.MeshStandardMaterial ({color: 'green'})
 
 
     const geometryHome = new THREE.BoxGeometry(depth,  height, fullWidth)
-    const material = new THREE.MeshToonMaterial ({color: 0xF7FE2E});
+    const material = new THREE.MeshLambertMaterial ({color: 0xbdbdb9});
     const homeMesh = new THREE.Mesh(geometryHome, material)
     homeMesh.position.set(depth /2, height/2,  fullWidth /2)
     const geometryErker = new THREE.BoxGeometry(erkerDepth,  height, erkerWidth)
