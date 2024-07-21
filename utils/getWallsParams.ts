@@ -1,11 +1,12 @@
 import * as THREE from "three";
 import configCommon from "~/utils/getConfigCommon";
 import getCongigWindows from "~/utils/getConfigWindows";
-import type {WallAssigmentType, WallSideVariantsType, WidthVariantsType} from "~/utils/types";
+import type {WallAssigmentType, WallSubtractObjectsVariantsType, WidthVariantsType} from "~/utils/types";
 import type {WallTextureColorType, WallDirectionType, PositionVariantsType} from "~/utils/types";
 import {
-    WallAssignmentVariants, WallSideVariants, WallParams, WallParamsRaw, WallConstructionVariants, WallDirectionVariants
+    WallAssignmentVariants, WallSideVariants,  WallConstructionVariants, WallDirectionVariants
 } from "~/utils/types";
+import type {SubtractObjectsParams, WallParams, WallParamsRaw} from "~/utils/types";
 
 export default function (): WallParams[] {
     const {
@@ -163,8 +164,8 @@ export default function (): WallParams[] {
                 [WallSideVariants.HOME_BACK]: fullWidth - facadeWallDepth * 2,
                 [WallSideVariants.HOME_FRONT_LEFT]: sideWidthLeft,
                 [WallSideVariants.HOME_FRONT_RIGHT]: sideWidthRight,
-                [WallSideVariants.ERKER_LEFT]: erkerDepth,
-                [WallSideVariants.ERKER_RIGHT]: erkerDepth,
+                [WallSideVariants.ERKER_LEFT]: erkerDepth + facadeWallDepth,
+                [WallSideVariants.ERKER_RIGHT]: erkerDepth + facadeWallDepth,
                 [WallSideVariants.ERKER_FRONT]: erkerWidth - facadeWallDepth * 2,
             },
 
@@ -172,9 +173,9 @@ export default function (): WallParams[] {
                 [WallSideVariants.HOME_LEFT]: getSupportDepth(depth),
                 [WallSideVariants.HOME_RIGHT]: getSupportDepth(depth),
                 [WallSideVariants.HOME_BACK]: getSupportWidth(fullWidth - facadeWallDepth * 2),
-                [WallSideVariants.HOME_FRONT_LEFT]: sideWidthLeft - constructionWallDepth + 20,
-                [WallSideVariants.HOME_FRONT_RIGHT]: sideWidthLeft - constructionWallDepth + 20,
-                [WallSideVariants.ERKER_LEFT]: erkerDepth + constructionWallDepth ,
+                [WallSideVariants.HOME_FRONT_LEFT]: sideWidthLeft - constructionWallDepth + 20 + facadeWallDepth,
+                [WallSideVariants.HOME_FRONT_RIGHT]: sideWidthLeft - constructionWallDepth + 20 + facadeWallDepth,
+                [WallSideVariants.ERKER_LEFT]: erkerDepth + constructionWallDepth,
                 [WallSideVariants.ERKER_RIGHT]: erkerDepth + constructionWallDepth,
                 [WallSideVariants.ERKER_FRONT]: getSupportWidth(erkerWidth - facadeWallDepth * 2),
             },
@@ -268,12 +269,12 @@ export default function (): WallParams[] {
                     z: sideWidthLeft / 2 + facadeWallDepth + windowDeltaOffsetZ
                 },
                 [WallSideVariants.ERKER_LEFT]: {
-                    x: depth + erkerDepth / 2 +facadeWallDepth - windowDeltaOffsetX,
+                    x: depth + erkerDepth / 2 - windowDeltaOffsetX + facadeWallDepth / 2 + 20,
                     y: height + wallHeight / 2,
                     z: getDeltaPosition(fullWidth - sideWidthLeft - facadeWallDepth / 2, -1)
                 },
                 [WallSideVariants.ERKER_RIGHT]: {
-                    x: depth + erkerDepth / 2 +facadeWallDepth - windowDeltaOffsetX,
+                    x: depth + erkerDepth / 2 - windowDeltaOffsetX + facadeWallDepth / 2 + 20,
                     y: height + wallHeight / 2,
                     z: getDeltaPosition(sideWidthLeft + facadeWallDepth / 2, 1)
                 },
@@ -301,7 +302,17 @@ export default function (): WallParams[] {
     }
 
     function getSubtractObjectsParam(side: WallSideVariants, assigment: WallAssignmentVariants) {
-        const sideVariants: WallSideVariantsType = {
+        function mapX(params: SubtractObjectsParams, delta: number) {
+            return {
+                ...params,
+                position: {
+                    ...params.position,
+                    x: params.position.x + delta
+                }
+
+            }
+        }
+        const sideVariants: WallSubtractObjectsVariantsType = {
             [WallAssignmentVariants.FACADE]: {
                 [WallSideVariants.DEFAULT]: [],
                 [WallSideVariants.ERKER_FRONT]: [frontErkerWindowBottom, frontErkerWindowTop],
@@ -316,21 +327,21 @@ export default function (): WallParams[] {
             [WallAssignmentVariants.SUPPORT]: {
                 [WallSideVariants.DEFAULT]: [],
                 [WallSideVariants.ERKER_FRONT]: [frontErkerWindowBottom, frontErkerWindowTop],
-                [WallSideVariants.ERKER_LEFT]: [leftErkerWindowBottom, leftErkerWindowTop],
-                [WallSideVariants.ERKER_RIGHT]: [rightErkerWindowTop, rightErkerWindowBottom],
+                [WallSideVariants.ERKER_LEFT]: [mapX(leftErkerWindowBottom, windowDeltaOffsetX), mapX(leftErkerWindowTop, windowDeltaOffsetX)],
+                [WallSideVariants.ERKER_RIGHT]: [mapX(rightErkerWindowTop, windowDeltaOffsetX), mapX(rightErkerWindowBottom, windowDeltaOffsetX)],
                 [WallSideVariants.HOME_BACK]: [backHomeWindowBottomLeft, backHomeWindowTopLeft, backHomeWindowBottomRight, backHomeWindowTopRight],
                 [WallSideVariants.HOME_LEFT]: [leftHomeWindowParams],
                 [WallSideVariants.HOME_RIGHT]: [],
-                [WallSideVariants.HOME_FRONT_LEFT]: [frontHomeWindowBottomLeft, frontHomeWindowTopLeft],
-                [WallSideVariants.HOME_FRONT_RIGHT]: [frontHomeWindowBottomRight, frontHomeWindowTopRight],
+                [WallSideVariants.HOME_FRONT_LEFT]: [mapX(frontHomeWindowBottomLeft, -windowDeltaOffsetZ), mapX(frontHomeWindowTopLeft, -windowDeltaOffsetZ)],
+                [WallSideVariants.HOME_FRONT_RIGHT]: [mapX(frontHomeWindowBottomRight, windowDeltaOffsetZ), mapX(frontHomeWindowTopRight, windowDeltaOffsetZ)],
             },
 
         }
-        if (side in sideVariants) {
-            return sideVariants[side]
+        if (assigment in sideVariants && side in sideVariants[assigment]) {
+            return sideVariants[assigment][side]
         }
 
-        return sideVariants[WallSideVariants.DEFAULT]
+        return sideVariants[assigment][WallSideVariants.DEFAULT]
     }
 
     function getDepthParam(assigment: WallAssignmentVariants) {
@@ -385,7 +396,6 @@ export default function (): WallParams[] {
                 rotationY: getRotationY(item.direction),
                 textureColor: getTextureColorParam(item.assigment),
                 subtractObjectsParams: getSubtractObjectsParam(item.side, item.assigment),
-                construction: WallConstructionVariants.WALLS,
                 position: getPositionParam(item.side, item.assigment)
             }
 

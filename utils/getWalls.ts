@@ -8,7 +8,6 @@ import getWallsParams from "~/utils/getWallsParams";
 
 export default function (): THREE.Mesh[] {
     const wallParamsCollection = getWallsParams()
-    console.log(wallParamsCollection)
 
     const walls: THREE.Mesh[] = []
 
@@ -35,16 +34,19 @@ export default function (): THREE.Mesh[] {
     function getMesh(wallParams: WallParams) {
         const {width, height, depth, textureColor, rotationY, position: {x, y, z}} = wallParams
         const geometry = new THREE.BoxGeometry(width, height, depth)
-        const material = new THREE.MeshLambertMaterial({color: textureColor})
+        const material = new THREE.MeshPhysicalMaterial({color: textureColor, emissiveIntensity: 0, flatShading: true,
+            transparent: false,
+            opacity: 1})
+        material.needsUpdate = true
         const mesh = new THREE.Mesh(geometry, material)
+
 
         const wall = setSubtractedObjects(geometry, wallParams.subtractObjectsParams)
         wall.material = material
         wall.userData = {...getWallUserData(wallParams), ...getUserFunctions(mesh, wallParams)}
         wall.rotation.set(0, rotationY, 0)
         wall.position.set(x, y, z)
-        wall.receiveShadow = true
-        wall.castShadow = true
+
         return wall
     }
 

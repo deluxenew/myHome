@@ -1,35 +1,31 @@
 <script setup lang="ts">
-import {TresCanvas} from '@tresjs/core';
+import {TresCanvas, useRenderLoop, vLightHelper, vLog } from '@tresjs/core';
 import {shallowRef, watch} from 'vue';
 import gsap from 'gsap';
 import {
-    BasicShadowMap,
     Vector3,
     SRGBColorSpace,
-    NoToneMapping, PerspectiveCamera, Camera,
+    NoToneMapping, PCFSoftShadowMap, VSMShadowMap,
 } from "three";
 import getFundament from "/utils/getFundament";
 import getWalls from "/utils/getWalls";
 import getOverlap from "/utils/getOverlap";
+import { OrbitControls } from '@tresjs/cientos';
 
 
 const boxesRef = shallowRef();
-const zs = [];
-for (let z = -4.5; z <= 4.5; z++) {
-    zs.push(z);
-}
 
 const camera = ref(null)
 const canvas = ref(null)
 
 const cameraBind = ref({
-    position: [15000, 10000, 0],
-    lookAt: new Vector3(5000, 0, 5000),
+    position: [15, 10, 0],
+    lookAt: new Vector3(50, 0, 50),
     fov: 45,
     far: 100000,
-
-
 })
+
+const { onLoop } = useRenderLoop()
 
 watch(boxesRef, (v) => {
     v.children.forEach((child) => child.scale.set(0, 0, 0))
@@ -62,35 +58,55 @@ const fundaments = getFundament()
 const walls = getWalls()
 const overlap = getOverlap()
 
-const objects = ref([...fundaments, ...walls, ...overlap])
+const objects = ref([...fundaments, ...overlap, ...walls ])
 
 const gl = {
-    clearColor: '#82DBC5',
+    clearColor: '#ffffff',
     shadows: true,
-    alpha: false,
-    shadowMapType: BasicShadowMap,
-    outputColorSpace: SRGBColorSpace,
-    toneMapping: NoToneMapping,
+    shadowMapType: PCFSoftShadowMap,
+    // outputColorSpace: SRGBColorSpace,
 }
-const aspect = computed(() => {
-    if (typeof window === "undefined") return 800/600
-    return window.innerWidth/ window.innerHeight
-})
 </script>
 
 <template>
-    <TresCanvas ref="canvas" clear-color="#82DBC5" window-size v-bind="gl" preset="realistic">
-        <TresPerspectiveCamera  ref="camera" v-bind="cameraBind" :far="1000000" >
+    <TresCanvas ref="canvas"  window-size v-bind="gl" preset="realistic" >
+        <TresPerspectiveCamera  ref="camera" v-bind="cameraBind" :far="100" >
 
         </TresPerspectiveCamera>
-        <OrbitControls :target="new Vector3(5000, 2500, 5000)"/>
-        <TresDirectionalLight  :position="new Vector3(10000,10000,10000)" :intensity="1" :shadow="true">
+        <OrbitControls />
 
-        </TresDirectionalLight>
-        <TresGroup ref="boxesRef">
-            <TresObject3D v-bind="item" v-for="item in objects">
+        <TresGroup ref="boxesRef" :scale="new Vector3(0.001, 0.001, 0.001)">
+            <TresObject3D cast-shadow receive-shadow v-bind="item"  v-for="item in objects" >
 
             </TresObject3D>
+            <TresSpotLight
+                :position="new Vector3(3000,6400,3000)"
+                :intensity="1"
+                cast-shadow
+                :angle="Math.PI"
+            />
+
+            <!--        <TresPointLight-->
+            <!--            :position="new Vector3(8,6.4,3)"-->
+            <!--            :intensity="10"-->
+            <!--            cast-shadow-->
+            <!--        />-->
+
+            <TresSpotLight
+                :position="new Vector3(8000,3000,3000)"
+                :intensity="1"
+                :angle="Math.PI"
+                cast-shadow
+            />
+
+            <TresSpotLight
+                :position="new Vector3(5000,3000,5000)"
+                :intensity="1"
+                :angle="Math.PI"
+                cast-shadow
+            />
         </TresGroup>
+        <TresAmbientLight :intensity=".4" />
+
     </TresCanvas>
 </template>

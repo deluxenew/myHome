@@ -19,10 +19,12 @@ export default function () {
 
     const defaultWallDepth = 300
     const facadeWallDepth = 100
-    const constructionWallDepth = 420
+    const constructionWallDepth = 380
 
-    const windowDeltaOffsetX =  constructionWallDepth + 10
+    const windowDeltaOffsetX =  constructionWallDepth
     const windowDeltaOffsetZ =  constructionWallDepth / 2 + 20
+
+
 
 
     return {

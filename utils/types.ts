@@ -49,7 +49,7 @@ export interface SubtractBoxConfig {
     }
 }
 
-export type WallSideVariantsType = {
+export type WallSubtractObjectsVariantsType = {
     [WallSideVariants: string]: {
         [WallAssignmentVariants: string]: SubtractBoxConfig[]
     }
@@ -82,6 +82,7 @@ export enum WallConstructionVariants {
 }
 
 export interface SubtractObjectsParams {
+    code: WallSubtractVariants
     width: number
     height: number
     depth: number

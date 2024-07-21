@@ -6,7 +6,7 @@ export default function () {
         leftHomeWindowParams: {
             code: WallSubtractVariants.WINDOW_HOME_LEFT,
             width: 1200,
-            height: 2400,
+            height: 2990,
             depth: 522,
             position: {
                 x: 500,
@@ -16,7 +16,7 @@ export default function () {
         },
         frontHomeWindowBottomLeft: {
             code: WallSubtractVariants.WINDOW_HOME_FRONT_BOTTOM_LEFT,
-            width: 1800,
+            width: 1200,
             height: 2400,
             depth: 522,
             position: {
@@ -27,7 +27,7 @@ export default function () {
         },
         frontHomeWindowTopLeft: {
             code: WallSubtractVariants.WINDOW_HOME_FRONT_TOP_LEFT,
-            width: 1800,
+            width: 1200,
             height: 2400,
             depth: 522,
             position: {
@@ -38,7 +38,7 @@ export default function () {
         },
         frontHomeWindowBottomRight: {
             code: WallSubtractVariants.WINDOW_HOME_FRONT_BOTTOM_RIGHT,
-            width: 1800,
+            width: 1200,
             height: 2400,
             depth: 522,
             position: {
@@ -49,7 +49,7 @@ export default function () {
         },
         frontHomeWindowTopRight: {
             code: WallSubtractVariants.WINDOW_HOME_FRONT_TOP_RIGHT,
-            width: 1800,
+            width: 1200,
             height: 2400,
             depth: 522,
             position: {
@@ -60,62 +60,62 @@ export default function () {
         },
         backHomeWindowBottomLeft: {
             code: WallSubtractVariants.WINDOW_HOME_BACK_BOTTOM_LEFT,
-            width: 1900,
+            width: 1950,
             height: 2400,
             depth: 522,
             position: {
-                x: -2700,
-                y: -1500,
+                x: -3000,
+                y: -1600,
                 z:  0
             }
         },
         backHomeWindowTopLeft: {
             code: WallSubtractVariants.WINDOW_HOME_BACK_TOP_LEFT,
-            width: 1900,
+            width: 1950,
             height: 2400,
             depth: 522,
             position: {
-                x: -2700,
+                x: -3000,
                 y: 1500,
                 z: 0
             }
         },
         backHomeWindowBottomRight: {
             code: WallSubtractVariants.WINDOW_HOME_BACK_BOTTOM_RIGHT,
-            width: 1900,
-            height: 2700,
+            width: 1950,
+            height: 2750,
             depth: 522,
             position: {
-                x: 2700,
-                y: -1700,
+                x: 3000,
+                y: -1800,
                 z: 0
             }
         },
         backHomeWindowTopRight: {
             code: WallSubtractVariants.WINDOW_HOME_BACK_TOP_RIGHT,
-            width: 1900,
+            width: 1950,
             height: 2400,
             depth: 522,
             position: {
-                x: 2700,
+                x: 3000,
                 y: 1500,
                 z: 0
             }
         },
         leftErkerWindowBottom: {
             code: WallSubtractVariants.WINDOW_ERKER_LEFT_BOTTOM,
-            width: 1200,
+            width: 800,
             height: 2400,
             depth: 522,
             position: {
                 x: 0,
-                y: -1500,
+                y: -1600,
                 z: 0
             }
         },
         leftErkerWindowTop: {
             code: WallSubtractVariants.WINDOW_ERKER_LEFT_TOP,
-            width: 1200,
+            width: 800,
             height: 2400,
             depth: 522,
             position: {
@@ -126,18 +126,18 @@ export default function () {
         },
         rightErkerWindowBottom: {
             code: WallSubtractVariants.WINDOW_ERKER_RIGHT_BOTTOM,
-            width: 1200,
+            width: 800,
             height: 2400,
             depth: 522,
             position: {
                 x: 0,
-                y: -1500,
+                y: -1600,
                 z: 0
             }
         },
         rightErkerWindowTop: {
             code: WallSubtractVariants.WINDOW_ERKER_RIGHT_TOP,
-            width: 1200,
+            width: 800,
             height: 2400,
             depth: 522,
             position: {
@@ -159,7 +159,7 @@ export default function () {
         },
         frontErkerWindowTop: {
             code: WallSubtractVariants.WINDOW_ERKER_FRONT_TOP,
-            width: 1500,
+            width: 1900,
             height: 2400,
             depth: 522,
             position: {
