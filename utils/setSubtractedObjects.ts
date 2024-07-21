@@ -1,8 +1,7 @@
 import * as THREE from "three";
 import {Brush, Evaluator, SUBTRACTION} from "three-bvh-csg";
 import {BoxGeometry} from "three";
-import type {WallParams} from "~/utils/types";
-import type {SubtractObjectsParams} from "~/utils/types";
+import type {SubtractObjectsParams} from "~/utils/wallTypes";
 
 export default function(geometry: THREE.BoxGeometry, subtractObjectsParams: SubtractObjectsParams[]): THREE.Mesh {
     let mesh = new Brush(geometry);

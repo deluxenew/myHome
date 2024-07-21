@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
 
-import type {WallParams} from "~/utils/types";
+import type {WallParams} from "~/utils/wallTypes";
 import setSubtractedObjects from "~/utils/setSubtractedObjects";
 import getWallsParams from "~/utils/getWallsParams";
 

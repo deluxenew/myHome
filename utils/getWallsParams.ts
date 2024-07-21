@@ -1,12 +1,12 @@
 import * as THREE from "three";
 import configCommon from "~/utils/getConfigCommon";
 import getCongigWindows from "~/utils/getConfigWindows";
-import type {WallAssigmentType, WallSubtractObjectsVariantsType, WidthVariantsType} from "~/utils/types";
-import type {WallTextureColorType, WallDirectionType, PositionVariantsType} from "~/utils/types";
+import type {WallAssigmentType, WallSubtractObjectsVariantsType, WidthVariantsType} from "~/utils/wallTypes";
+import type {WallTextureColorType, WallDirectionType, PositionVariantsType} from "~/utils/wallTypes";
 import {
     WallAssignmentVariants, WallSideVariants,  WallConstructionVariants, WallDirectionVariants
-} from "~/utils/types";
-import type {SubtractObjectsParams, WallParams, WallParamsRaw} from "~/utils/types";
+} from "~/utils/wallTypes";
+import type {SubtractObjectsParams, WallParams, WallParamsRaw} from "~/utils/wallTypes";
 
 export default function (): WallParams[] {
     const {

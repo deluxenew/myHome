@@ -1,5 +1,5 @@
 
-import {WallSubtractVariants} from "~/utils/types";
+import {WallSubtractVariants} from "~/utils/wallTypes";
 
 export default function () {
     return {
@@ -21,7 +21,7 @@ export default function () {
             depth: 522,
             position: {
                 x: 0,
-                y: -1500,
+                y: -1700,
                 z: 0
             }
         },
@@ -43,7 +43,7 @@ export default function () {
             depth: 522,
             position: {
                 x: 0,
-                y: -1500,
+                y: -1700,
                 z: 0
             }
         },
@@ -65,7 +65,7 @@ export default function () {
             depth: 522,
             position: {
                 x: -3000,
-                y: -1600,
+                y: -1700,
                 z:  0
             }
         },

@@ -78,7 +78,8 @@ export type WallDirectionType = {
 }
 
 export enum WallConstructionVariants {
-    WALLS = "WALLS"
+    WALLS = "WALLS",
+    PARTITION_WALLS = 'PARTITION_WALLS'
 }
 
 export interface SubtractObjectsParams {
