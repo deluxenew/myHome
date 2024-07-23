@@ -11,6 +11,7 @@ import getFundament from "/utils/getFundament";
 import getWalls from "/utils/getWalls";
 import getOverlap from "/utils/getOverlap";
 import { OrbitControls } from '@tresjs/cientos';
+import getPartitionWall from "/utils/getPartitionWall";
 
 
 const boxesRef = shallowRef();
@@ -19,8 +20,8 @@ const camera = ref(null)
 const canvas = ref(null)
 
 const cameraBind = ref({
-    position: [15, 10, 0],
-    lookAt: new Vector3(50, 0, 50),
+    position: [3, 2, 3],
+    lookAt: new Vector3(3, 2, 4),
     fov: 45,
     far: 100000,
 })
@@ -57,8 +58,9 @@ watch(boxesRef, (v) => {
 const fundaments = getFundament()
 const walls = getWalls()
 const overlap = getOverlap()
+const partitionWalls = getPartitionWall()
 
-const objects = ref([...fundaments, ...overlap, ...walls ])
+const objects = ref([...fundaments, ...overlap, ...walls, ...partitionWalls ])
 
 const gl = {
     clearColor: '#ffffff',
@@ -73,7 +75,7 @@ const gl = {
         <TresPerspectiveCamera  ref="camera" v-bind="cameraBind" :far="100" >
 
         </TresPerspectiveCamera>
-        <OrbitControls />
+        <OrbitControls  />
 
         <TresGroup ref="boxesRef" :scale="new Vector3(0.001, 0.001, 0.001)">
             <TresObject3D cast-shadow receive-shadow v-bind="item"  v-for="item in objects" >

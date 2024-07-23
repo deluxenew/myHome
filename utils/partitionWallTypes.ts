@@ -21,6 +21,30 @@ export namespace PartitionWall {
         TOP_RIGHT_Z = 'TOP_RIGHT_Z'
     }
 
+    export type WidthVariantsType = {
+        [CodeVariants: string]: number
+    }
+
+    export type HeightVariantsType = {
+        [Levels: string]: number
+    }
+
+    export type DepthVariantsType = {
+        [WallAssignmentVariants: string]: number
+    }
+
+    export type RotationYVariantsType = {
+        [WallDirectionVariants: string]: number
+    }
+
+    export type PositionVariantsType = {
+        [CodeVariants: string]: {
+            x: number,
+            y: number,
+            z: number,
+        }
+    }
+
     export interface ParamsRaw {
         code: CodeVariants
         assigment: WallConstructionVariants
@@ -28,16 +52,17 @@ export namespace PartitionWall {
         direction: WallDirectionVariants
     }
 
-    export interface Params extends ParamsRaw{
+    export interface Params extends ParamsRaw {
         width: number,
         height: number,
         depth: number,
         rotationY: number,
         position: {
-            x:number,
-            y:number,
-            z:number
+            x: number,
+            y: number,
+            z: number
         },
+        textureColor: string,
         subtractObjectsParams: SubtractObjectsParams[]
     }
 }
