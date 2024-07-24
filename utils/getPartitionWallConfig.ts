@@ -26,13 +26,13 @@ export default function (): PartitionWall.Params[] {
     const paramsRaw: PartitionWall.ParamsRaw[] = [
         {
             code: PartitionWall.CodeVariants.BOTTOM_CAPITAL_FULL,
-            assigment: WallConstructionVariants.PARTITION_WALLS,
+            assigment: WallConstructionVariants.WALLS,
             level: PartitionWall.Levels.BOTTOM,
             direction: WallDirectionVariants.WALLS_X
         },
         {
             code: PartitionWall.CodeVariants.BOTTOM_CAPITAL_SHORT,
-            assigment: WallConstructionVariants.PARTITION_WALLS,
+            assigment: WallConstructionVariants.WALLS,
             level: PartitionWall.Levels.BOTTOM,
             direction: WallDirectionVariants.WALLS_X
         },
@@ -62,7 +62,7 @@ export default function (): PartitionWall.Params[] {
         },
         {
             code: PartitionWall.CodeVariants.TOP_CAPITAL_FULL,
-            assigment: WallConstructionVariants.PARTITION_WALLS,
+            assigment: WallConstructionVariants.WALLS,
             level: PartitionWall.Levels.TOP,
             direction: WallDirectionVariants.WALLS_X
         },
@@ -88,13 +88,13 @@ export default function (): PartitionWall.Params[] {
         const widthVariants: PartitionWall.WidthVariantsType = {
             [PartitionWall.CodeVariants.BOTTOM_CAPITAL_FULL]: getCapitalWidth(),
             [PartitionWall.CodeVariants.TOP_CAPITAL_FULL]: getCapitalWidth(),
-            [PartitionWall.CodeVariants.BOTTOM_CAPITAL_SHORT]: sideWidthLeft - (facadeWallDepth + 20 + constructionWallDepth) /2,
+            [PartitionWall.CodeVariants.BOTTOM_CAPITAL_SHORT]: sideWidthLeft - (facadeWallDepth + 20 + constructionWallDepth) / 2,
             [PartitionWall.CodeVariants.BOTTOM_LEFT]: depth - facadeWallDepth * 2 - 40 - constructionWallDepth * 3 - 1900 - 3600,
             [PartitionWall.CodeVariants.BOTTOM_RIGHT]: depth - facadeWallDepth * 2 - 40 - constructionWallDepth * 3 - 3600,
             [PartitionWall.CodeVariants.BOTTOM_RIGHT_SHORT_Z]: 1500,
             [PartitionWall.CodeVariants.BOTTOM_RIGHT_SHORT_X]: 1500,
             [PartitionWall.CodeVariants.TOP_RIGHT_X]: depth - facadeWallDepth * 2 - 40 - constructionWallDepth * 3 - 3600,
-            [PartitionWall.CodeVariants.TOP_RIGHT_Z]: sideWidthRight - (facadeWallDepth + 20 + constructionWallDepth) /2,
+            [PartitionWall.CodeVariants.TOP_RIGHT_Z]: sideWidthRight - (facadeWallDepth + 20 + constructionWallDepth) / 2,
         }
 
         return widthVariants[code]
@@ -108,12 +108,12 @@ export default function (): PartitionWall.Params[] {
         return heightVariants[level]
     }
 
-    function getDepth(code: PartitionWall.CodeVariants): number {
+    function getDepth(assigment: WallConstructionVariants): number {
         const depthVariants: PartitionWall.DepthVariantsType = {
-            [WallAssignmentVariants.DEFAULT]: defaultWallDepth,
-            [WallAssignmentVariants.SUPPORT]: constructionWallDepth,
+            [WallConstructionVariants.WALLS]: constructionWallDepth,
+            [WallConstructionVariants.PARTITION_WALLS]: defaultWallDepth,
         }
-        return depthVariants[code]
+        return depthVariants[assigment]
     }
 
     function getRotationY(direction: WallDirectionVariants): number {
@@ -127,7 +127,7 @@ export default function (): PartitionWall.Params[] {
     function getPosition(code: PartitionWall.CodeVariants) {
         const positionVariants: PartitionWall.PositionVariantsType = {
             [PartitionWall.CodeVariants.BOTTOM_CAPITAL_FULL]: {
-                x: facadeWallDepth + 20 + constructionWallDepth + 3600 + constructionWallDepth ,
+                x: facadeWallDepth + 20 + constructionWallDepth + 3600 + constructionWallDepth,
                 y: height + 3200 / 2,
                 z: fullWidth / 2,
             },
@@ -137,39 +137,39 @@ export default function (): PartitionWall.Params[] {
                 z: fullWidth / 2,
             },
             [PartitionWall.CodeVariants.BOTTOM_CAPITAL_SHORT]: {
-                x: facadeWallDepth + 20 + constructionWallDepth  * 2.5 + 3600 + 1900,
-                y: height + 3200 / 2 ,
-                z: fullWidth - sideWidthLeft / 2 - (facadeWallDepth + 20 + constructionWallDepth) /2,
+                x: facadeWallDepth + 20 + constructionWallDepth * 2.5 + 3600 + 1900,
+                y: height + 3200 / 2,
+                z: fullWidth - sideWidthLeft / 2 - (facadeWallDepth + 20 + constructionWallDepth) / 2,
             },
             [PartitionWall.CodeVariants.BOTTOM_LEFT]: {
                 x: (depth - (facadeWallDepth * 2 + 20 + constructionWallDepth * 3 + 3600 + 1900)) / 2 + facadeWallDepth + 20 + constructionWallDepth * 2 + 3600 + 1900,
-                y:  height +3200 / 2  ,
-                z: fullWidth - sideWidthLeft - defaultWallDepth /2,
+                y: height + 3200 / 2,
+                z: fullWidth - sideWidthLeft - defaultWallDepth / 2,
             },
             [PartitionWall.CodeVariants.BOTTOM_RIGHT]: {
                 x: (depth - (facadeWallDepth * 2 + 40 + constructionWallDepth * 3 + 3600)) / 2 + facadeWallDepth + 20 + constructionWallDepth * 2 + 3600,
-                y: height + 3200 / 2 ,
-                z: sideWidthRight - defaultWallDepth /2,
+                y: height + 3200 / 2,
+                z: sideWidthRight - defaultWallDepth / 2,
             },
             [PartitionWall.CodeVariants.BOTTOM_RIGHT_SHORT_Z]: {
-                x: facadeWallDepth+ 20 + constructionWallDepth * 2 + 3600 + 1500 ,
-                y: height + 3200 / 2 ,
-                z: sideWidthRight - 750 -defaultWallDepth /2,
+                x: facadeWallDepth + 20 + constructionWallDepth * 2 + 3600 + 1500,
+                y: height + 3200 / 2,
+                z: sideWidthRight - 750 - defaultWallDepth / 2,
             },
             [PartitionWall.CodeVariants.BOTTOM_RIGHT_SHORT_X]: {
-                x: facadeWallDepth+ 20 + constructionWallDepth * 2 + 3600 + 1500 /2,
-                y: height + 3200 / 2 ,
-                z: sideWidthRight - 1500 - defaultWallDepth / 2 ,
+                x: facadeWallDepth + 20 + constructionWallDepth * 2 + 3600 + 1500 / 2,
+                y: height + 3200 / 2,
+                z: sideWidthRight - 1500 - defaultWallDepth / 2,
             },
             [PartitionWall.CodeVariants.TOP_RIGHT_X]: {
                 x: (depth - (facadeWallDepth * 2 + 20 + constructionWallDepth * 3 + 3600)) / 2 + facadeWallDepth + 20 + constructionWallDepth * 2 + 3600,
                 y: height + 3200 / 2 + 3200 + overlapHeight,
-                z: sideWidthRight - defaultWallDepth /2 +  + facadeWallDepth + 20 + constructionWallDepth ,
+                z: sideWidthRight - defaultWallDepth / 2 + +facadeWallDepth + 20 + constructionWallDepth,
             },
             [PartitionWall.CodeVariants.TOP_RIGHT_Z]: {
-                x: (depth - (facadeWallDepth * 2 + 20 + constructionWallDepth * 3 + 3600)) / 2  + facadeWallDepth  + 20 + constructionWallDepth * 2 + 3600 + defaultWallDepth /2,
+                x: (depth - (facadeWallDepth * 2 + 20 + constructionWallDepth * 3 + 3600)) / 2 + facadeWallDepth + 20 + constructionWallDepth * 2 + 3600 + defaultWallDepth / 2,
                 y: height + 3200 / 2 + 3200 + overlapHeight,
-                z: facadeWallDepth + 20 + defaultWallDepth + (sideWidthRight ) /2,
+                z: facadeWallDepth + 20 + constructionWallDepth + (sideWidthRight) / 2,
             },
         }
         return positionVariants[code]

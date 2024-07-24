@@ -33,10 +33,10 @@ export default function () {
     material.transparent = false
     material.alphaTest = 0
     material.lightMapIntensity = 0
-    homeMesh.position.set(depth / 2, height + wallHeight / 2 + overlapHeight / 2, fullWidth / 2)
+    homeMesh.position.set(depth / 2, height + wallHeight / 2 , fullWidth / 2)
     const geometryErker = new THREE.BoxGeometry(erkerDepth + facadeWallDepth, overlapHeight, erkerWidth - facadeWallDepth * 2)
     const erkerMesh = new THREE.Mesh(geometryErker, material)
-    erkerMesh.position.set(depth + erkerDepth / 2 - facadeWallDepth, height + wallHeight / 2 + overlapHeight / 2, fullWidth / 2)
+    erkerMesh.position.set(depth + erkerDepth / 2 - facadeWallDepth, height + wallHeight / 2 , fullWidth / 2)
 
     homeMesh.receiveShadow = true
     erkerMesh.receiveShadow = true

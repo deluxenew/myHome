@@ -14,10 +14,10 @@ export default function () {
     const sideWidthLeft = (width - erkerWidth) / 2
     const sideWidthRight = sideWidthLeft
 
-    const wallHeight = 6400
+    const wallHeight = 6400 + overlapHeight
 
 
-    const defaultWallDepth = 300
+    const defaultWallDepth = 150
     const facadeWallDepth = 100
     const constructionWallDepth = 380
 
