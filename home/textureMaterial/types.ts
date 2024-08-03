@@ -8,8 +8,9 @@ export namespace Material {
     }
 
     export enum Colors {
-
+        FUNDAMENT = 0xffffff
     }
+
     export enum Names {
         FUNDAMENT_MATERIAL = 'FUNDAMENT_MATERIAL',
     }
@@ -18,7 +19,7 @@ export namespace Material {
 
     }
 
-    export interface Config extends THREE.MaterialParameters{
+    export interface Config extends THREE.MaterialParameters {
         texturePath?: TexturePaths
         materialColor?: Colors
         materialType?: Types

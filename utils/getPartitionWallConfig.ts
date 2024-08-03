@@ -6,12 +6,12 @@ import * as THREE from "three";
 
 export default function (): PartitionWall.Params[] {
     const {
-        fullDepth,
-        fullWidth,
-        height,
+        fullHomeDepth,
+        fullHomeWidth,
+        fundamentHeight,
         erkerWidth,
         erkerDepth,
-        depth,
+        homeDepth,
         sideWidthLeft,
         sideWidthRight,
         wallHeight,
@@ -81,7 +81,7 @@ export default function (): PartitionWall.Params[] {
     ]
 
     function getCapitalWidth() {
-        return fullWidth - facadeWallDepth * 2 - 40 - constructionWallDepth * 2
+        return fullHomeWidth - facadeWallDepth * 2 - 40 - constructionWallDepth * 2
     }
 
     function getWidth(code: PartitionWall.CodeVariants): number {
@@ -89,11 +89,11 @@ export default function (): PartitionWall.Params[] {
             [PartitionWall.CodeVariants.BOTTOM_CAPITAL_FULL]: getCapitalWidth(),
             [PartitionWall.CodeVariants.TOP_CAPITAL_FULL]: getCapitalWidth(),
             [PartitionWall.CodeVariants.BOTTOM_CAPITAL_SHORT]: sideWidthLeft - (facadeWallDepth + 20 + constructionWallDepth) / 2,
-            [PartitionWall.CodeVariants.BOTTOM_LEFT]: depth - facadeWallDepth * 2 - 40 - constructionWallDepth * 3 - 1900 - 3600,
-            [PartitionWall.CodeVariants.BOTTOM_RIGHT]: depth - facadeWallDepth * 2 - 40 - constructionWallDepth * 3 - 3600,
+            [PartitionWall.CodeVariants.BOTTOM_LEFT]: homeDepth - facadeWallDepth * 2 - 40 - constructionWallDepth * 3 - 1900 - 3600,
+            [PartitionWall.CodeVariants.BOTTOM_RIGHT]: homeDepth - facadeWallDepth * 2 - 40 - constructionWallDepth * 3 - 3600,
             [PartitionWall.CodeVariants.BOTTOM_RIGHT_SHORT_Z]: 1500,
             [PartitionWall.CodeVariants.BOTTOM_RIGHT_SHORT_X]: 1500,
-            [PartitionWall.CodeVariants.TOP_RIGHT_X]: depth - facadeWallDepth * 2 - 40 - constructionWallDepth * 3 - 3600,
+            [PartitionWall.CodeVariants.TOP_RIGHT_X]: homeDepth - facadeWallDepth * 2 - 40 - constructionWallDepth * 3 - 3600,
             [PartitionWall.CodeVariants.TOP_RIGHT_Z]: sideWidthRight - (facadeWallDepth + 20 + constructionWallDepth) / 2,
         }
 
@@ -128,47 +128,47 @@ export default function (): PartitionWall.Params[] {
         const positionVariants: PartitionWall.PositionVariantsType = {
             [PartitionWall.CodeVariants.BOTTOM_CAPITAL_FULL]: {
                 x: facadeWallDepth + 20 + constructionWallDepth + 3600 + constructionWallDepth,
-                y: height + 3200 / 2,
-                z: fullWidth / 2,
+                y: fundamentHeight + 3200 / 2,
+                z: fullHomeWidth / 2,
             },
             [PartitionWall.CodeVariants.TOP_CAPITAL_FULL]: {
                 x: facadeWallDepth + 20 + constructionWallDepth + 3600 + constructionWallDepth,
-                y: height + 3200 / 2 + 3200 + overlapHeight,
-                z: fullWidth / 2,
+                y: fundamentHeight + 3200 / 2 + 3200 + overlapHeight,
+                z: fullHomeWidth / 2,
             },
             [PartitionWall.CodeVariants.BOTTOM_CAPITAL_SHORT]: {
                 x: facadeWallDepth + 20 + constructionWallDepth * 2.5 + 3600 + 1900,
-                y: height + 3200 / 2,
-                z: fullWidth - sideWidthLeft / 2 - (facadeWallDepth + 20 + constructionWallDepth) / 2,
+                y: fundamentHeight + 3200 / 2,
+                z: fullHomeWidth - sideWidthLeft / 2 - (facadeWallDepth + 20 + constructionWallDepth) / 2,
             },
             [PartitionWall.CodeVariants.BOTTOM_LEFT]: {
-                x: (depth - (facadeWallDepth * 2 + 20 + constructionWallDepth * 3 + 3600 + 1900)) / 2 + facadeWallDepth + 20 + constructionWallDepth * 2 + 3600 + 1900,
-                y: height + 3200 / 2,
-                z: fullWidth - sideWidthLeft - defaultWallDepth / 2,
+                x: (homeDepth - (facadeWallDepth * 2 + 20 + constructionWallDepth * 3 + 3600 + 1900)) / 2 + facadeWallDepth + 20 + constructionWallDepth * 2 + 3600 + 1900,
+                y: fundamentHeight + 3200 / 2,
+                z: fullHomeWidth - sideWidthLeft - defaultWallDepth / 2,
             },
             [PartitionWall.CodeVariants.BOTTOM_RIGHT]: {
-                x: (depth - (facadeWallDepth * 2 + 40 + constructionWallDepth * 3 + 3600)) / 2 + facadeWallDepth + 20 + constructionWallDepth * 2 + 3600,
-                y: height + 3200 / 2,
+                x: (homeDepth - (facadeWallDepth * 2 + 40 + constructionWallDepth * 3 + 3600)) / 2 + facadeWallDepth + 20 + constructionWallDepth * 2 + 3600,
+                y: fundamentHeight + 3200 / 2,
                 z: sideWidthRight - defaultWallDepth / 2,
             },
             [PartitionWall.CodeVariants.BOTTOM_RIGHT_SHORT_Z]: {
                 x: facadeWallDepth + 20 + constructionWallDepth * 2 + 3600 + 1500,
-                y: height + 3200 / 2,
+                y: fundamentHeight + 3200 / 2,
                 z: sideWidthRight - 750 - defaultWallDepth / 2,
             },
             [PartitionWall.CodeVariants.BOTTOM_RIGHT_SHORT_X]: {
                 x: facadeWallDepth + 20 + constructionWallDepth * 2 + 3600 + 1500 / 2,
-                y: height + 3200 / 2,
+                y: fundamentHeight + 3200 / 2,
                 z: sideWidthRight - 1500 - defaultWallDepth / 2,
             },
             [PartitionWall.CodeVariants.TOP_RIGHT_X]: {
-                x: (depth - (facadeWallDepth * 2 + 20 + constructionWallDepth * 3 + 3600)) / 2 + facadeWallDepth + 20 + constructionWallDepth * 2 + 3600,
-                y: height + 3200 / 2 + 3200 + overlapHeight,
+                x: (homeDepth - (facadeWallDepth * 2 + 20 + constructionWallDepth * 3 + 3600)) / 2 + facadeWallDepth + 20 + constructionWallDepth * 2 + 3600,
+                y: fundamentHeight + 3200 / 2 + 3200 + overlapHeight,
                 z: sideWidthRight - defaultWallDepth / 2 + +facadeWallDepth + 20 + constructionWallDepth,
             },
             [PartitionWall.CodeVariants.TOP_RIGHT_Z]: {
-                x: (depth - (facadeWallDepth * 2 + 20 + constructionWallDepth * 3 + 3600)) / 2 + facadeWallDepth + 20 + constructionWallDepth * 2 + 3600 + defaultWallDepth / 2,
-                y: height + 3200 / 2 + 3200 + overlapHeight,
+                x: (homeDepth - (facadeWallDepth * 2 + 20 + constructionWallDepth * 3 + 3600)) / 2 + facadeWallDepth + 20 + constructionWallDepth * 2 + 3600 + defaultWallDepth / 2,
+                y: fundamentHeight + 3200 / 2 + 3200 + overlapHeight,
                 z: facadeWallDepth + 20 + constructionWallDepth + (sideWidthRight) / 2,
             },
         }

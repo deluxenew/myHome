@@ -2,13 +2,13 @@ import * as THREE from 'three'
 import configCommon from "~/utils/getConfigCommon";
 
 export default function () {
-    const {fullDepth,
-        fullWidth,
-        height,
+    const {fullHomeDepth,
+        fullHomeWidth,
+        fundamentHeight,
         erkerWidth,
         erkerDepth,
-        depth,
-        width,
+        homeDepth,
+        fullWidth,
         sideWidthLeft,
         sideWidthRight} = configCommon()
 
@@ -18,17 +18,17 @@ export default function () {
     const ground = new THREE.Mesh(groundGeometry, groundMagerial)
 
     ground.receiveShadow = true
-    ground.position.set(- 29000 /2 + fullDepth + 5000 ,-2,-15200 / 2 + fullWidth + 3000 )
+    ground.position.set(- 29000 /2 + fullHomeDepth + 5000 ,-2,-15200 / 2 + fullHomeWidth + 3000 )
 
 
-    const geometryHome = new THREE.BoxGeometry(depth,  height, fullWidth)
+    const geometryHome = new THREE.BoxGeometry(homeDepth,  fundamentHeight, fullHomeWidth)
     const material = new THREE.MeshStandardMaterial ({color: 0xbdbdb9});
     material.needsUpdate = true
     const homeMesh = new THREE.Mesh(geometryHome, material)
-    homeMesh.position.set(depth /2, height/2,  fullWidth /2)
-    const geometryErker = new THREE.BoxGeometry(erkerDepth,  height, erkerWidth)
+    homeMesh.position.set(homeDepth /2, fundamentHeight/2,  fullHomeWidth /2)
+    const geometryErker = new THREE.BoxGeometry(erkerDepth,  fundamentHeight, erkerWidth)
     const erkerMesh = new THREE.Mesh(geometryErker, material)
-    erkerMesh.position.set(depth + erkerDepth/2 , height /2, fullWidth /2 )
+    erkerMesh.position.set(homeDepth + erkerDepth/2 , fundamentHeight /2, fullHomeWidth /2 )
     homeMesh.castShadow = true
     erkerMesh.castShadow = true
 homeMesh.receiveShadow = true

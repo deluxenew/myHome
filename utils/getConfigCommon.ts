@@ -1,17 +1,17 @@
 export default function () {
-    const fullDepth = 12000
-    const fullWidth = 9200
-    const height = 300
+    const fullHomeDepth = 12000
+    const fullHomeWidth = 9200
+    const fundamentHeight = 300
 
     const overlapHeight = 180
 
     const erkerWidth = 3200
     const erkerDepth = 2100
 
-    const depth = fullDepth - erkerDepth
-    const width = fullWidth
+    const homeDepth = fullHomeDepth - erkerDepth
+    const fullWidth = fullHomeWidth
 
-    const sideWidthLeft = (width - erkerWidth) / 2
+    const sideWidthLeft = (fullWidth - erkerWidth) / 2
     const sideWidthRight = sideWidthLeft
 
     const wallHeight = 6400 + overlapHeight
@@ -28,14 +28,14 @@ export default function () {
 
 
     return {
-        fullDepth,
-        fullWidth,
-        height,
+        fullHomeDepth,
+        fullHomeWidth,
+        fundamentHeight,
         overlapHeight,
         erkerWidth,
         erkerDepth,
-        depth,
-        width,
+        homeDepth,
+        fullWidth,
         sideWidthLeft,
         sideWidthRight,
         wallHeight,

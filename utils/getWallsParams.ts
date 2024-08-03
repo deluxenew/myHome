@@ -10,12 +10,12 @@ import type {SubtractObjectsParams, WallParams, WallParamsRaw} from "~/utils/wal
 
 export default function (): WallParams[] {
     const {
-        fullDepth,
-        fullWidth,
-        height,
+        fullHomeDepth,
+        fullHomeWidth,
+        fundamentHeight,
         erkerWidth,
         erkerDepth,
-        depth,
+        homeDepth,
         sideWidthLeft,
         sideWidthRight,
         wallHeight,
@@ -159,9 +159,9 @@ export default function (): WallParams[] {
 
         const widthVariants: WidthVariantsType = {
             [WallAssignmentVariants.FACADE]: {
-                [WallSideVariants.HOME_LEFT]: depth,
-                [WallSideVariants.HOME_RIGHT]: depth,
-                [WallSideVariants.HOME_BACK]: fullWidth - facadeWallDepth * 2,
+                [WallSideVariants.HOME_LEFT]: homeDepth,
+                [WallSideVariants.HOME_RIGHT]: homeDepth,
+                [WallSideVariants.HOME_BACK]: fullHomeWidth - facadeWallDepth * 2,
                 [WallSideVariants.HOME_FRONT_LEFT]: sideWidthLeft,
                 [WallSideVariants.HOME_FRONT_RIGHT]: sideWidthRight,
                 [WallSideVariants.ERKER_LEFT]: erkerDepth + facadeWallDepth,
@@ -170,9 +170,9 @@ export default function (): WallParams[] {
             },
 
             [WallAssignmentVariants.SUPPORT]: {
-                [WallSideVariants.HOME_LEFT]: getSupportDepth(depth),
-                [WallSideVariants.HOME_RIGHT]: getSupportDepth(depth),
-                [WallSideVariants.HOME_BACK]: getSupportWidth(fullWidth - facadeWallDepth * 2),
+                [WallSideVariants.HOME_LEFT]: getSupportDepth(homeDepth),
+                [WallSideVariants.HOME_RIGHT]: getSupportDepth(homeDepth),
+                [WallSideVariants.HOME_BACK]: getSupportWidth(fullHomeWidth - facadeWallDepth * 2),
                 [WallSideVariants.HOME_FRONT_LEFT]: sideWidthLeft - constructionWallDepth + 20 + facadeWallDepth,
                 [WallSideVariants.HOME_FRONT_RIGHT]: sideWidthLeft - constructionWallDepth + 20 + facadeWallDepth,
                 [WallSideVariants.ERKER_LEFT]: erkerDepth + constructionWallDepth,
@@ -201,87 +201,87 @@ export default function (): WallParams[] {
         const widthVariants: PositionVariantsType = {
             [WallAssignmentVariants.FACADE]: {
                 [WallSideVariants.HOME_LEFT]: {
-                    x: depth / 2,
-                    y: height + wallHeight / 2,
-                    z: fullWidth - facadeWallDepth / 2
+                    x: homeDepth / 2,
+                    y: fundamentHeight + wallHeight / 2,
+                    z: fullHomeWidth - facadeWallDepth / 2
                 },
                 [WallSideVariants.HOME_RIGHT]: {
-                    x: depth / 2,
-                    y: height + wallHeight / 2,
+                    x: homeDepth / 2,
+                    y: fundamentHeight + wallHeight / 2,
                     z: facadeWallDepth / 2
                 },
                 [WallSideVariants.HOME_BACK]: {
                     x: facadeWallDepth / 2,
-                    y: height + wallHeight / 2,
-                    z: fullWidth / 2
+                    y: fundamentHeight + wallHeight / 2,
+                    z: fullHomeWidth / 2
                 },
                 [WallSideVariants.HOME_FRONT_LEFT]: {
-                    x: depth - facadeWallDepth / 2,
-                    y: height + wallHeight / 2,
-                    z: fullWidth - sideWidthRight / 2 - facadeWallDepth
+                    x: homeDepth - facadeWallDepth / 2,
+                    y: fundamentHeight + wallHeight / 2,
+                    z: fullHomeWidth - sideWidthRight / 2 - facadeWallDepth
                 },
                 [WallSideVariants.HOME_FRONT_RIGHT]: {
-                    x: depth - facadeWallDepth / 2,
-                    y: height + wallHeight / 2,
+                    x: homeDepth - facadeWallDepth / 2,
+                    y: fundamentHeight + wallHeight / 2,
                     z: sideWidthLeft / 2 + facadeWallDepth
                 },
                 [WallSideVariants.ERKER_LEFT]: {
-                    x: depth + erkerDepth / 2,
-                    y: height + wallHeight / 2,
-                    z: fullWidth - sideWidthLeft - facadeWallDepth / 2
+                    x: homeDepth + erkerDepth / 2,
+                    y: fundamentHeight + wallHeight / 2,
+                    z: fullHomeWidth - sideWidthLeft - facadeWallDepth / 2
                 },
                 [WallSideVariants.ERKER_RIGHT]: {
-                    x: depth + erkerDepth / 2,
-                    y: height + wallHeight / 2,
+                    x: homeDepth + erkerDepth / 2,
+                    y: fundamentHeight + wallHeight / 2,
                     z: sideWidthLeft + facadeWallDepth / 2
                 },
                 [WallSideVariants.ERKER_FRONT]: {
-                    x: fullDepth - facadeWallDepth / 2,
-                    y: height + wallHeight / 2,
-                    z: fullWidth / 2
+                    x: fullHomeDepth - facadeWallDepth / 2,
+                    y: fundamentHeight + wallHeight / 2,
+                    z: fullHomeWidth / 2
                 },
             },
 
             [WallAssignmentVariants.SUPPORT]: {
                 [WallSideVariants.HOME_LEFT]: {
-                    x: depth / 2,
-                    y: height + wallHeight / 2,
-                    z: getDeltaPosition(fullWidth - facadeWallDepth / 2, -1)
+                    x: homeDepth / 2,
+                    y: fundamentHeight + wallHeight / 2,
+                    z: getDeltaPosition(fullHomeWidth - facadeWallDepth / 2, -1)
                 },
                 [WallSideVariants.HOME_RIGHT]: {
-                    x: depth / 2,
-                    y: height + wallHeight / 2,
+                    x: homeDepth / 2,
+                    y: fundamentHeight + wallHeight / 2,
                     z: getDeltaPosition(facadeWallDepth / 2, 1)
                 },
                 [WallSideVariants.HOME_BACK]: {
                     x: getDeltaPosition(facadeWallDepth / 2, 1),
-                    y: height + wallHeight / 2,
-                    z: fullWidth / 2
+                    y: fundamentHeight + wallHeight / 2,
+                    z: fullHomeWidth / 2
                 },
                 [WallSideVariants.HOME_FRONT_LEFT]: {
-                    x: getDeltaPosition(depth - facadeWallDepth / 2, -1),
-                    y: height + wallHeight / 2,
-                    z: fullWidth - sideWidthRight / 2 - facadeWallDepth - windowDeltaOffsetZ
+                    x: getDeltaPosition(homeDepth - facadeWallDepth / 2, -1),
+                    y: fundamentHeight + wallHeight / 2,
+                    z: fullHomeWidth - sideWidthRight / 2 - facadeWallDepth - windowDeltaOffsetZ
                 },
                 [WallSideVariants.HOME_FRONT_RIGHT]: {
-                    x: getDeltaPosition(depth - facadeWallDepth / 2, -1),
-                    y: height + wallHeight / 2,
+                    x: getDeltaPosition(homeDepth - facadeWallDepth / 2, -1),
+                    y: fundamentHeight + wallHeight / 2,
                     z: sideWidthLeft / 2 + facadeWallDepth + windowDeltaOffsetZ
                 },
                 [WallSideVariants.ERKER_LEFT]: {
-                    x: depth + erkerDepth / 2 - windowDeltaOffsetX + facadeWallDepth / 2 + 20,
-                    y: height + wallHeight / 2,
-                    z: getDeltaPosition(fullWidth - sideWidthLeft - facadeWallDepth / 2, -1)
+                    x: homeDepth + erkerDepth / 2 - windowDeltaOffsetX + facadeWallDepth / 2 + 20,
+                    y: fundamentHeight + wallHeight / 2,
+                    z: getDeltaPosition(fullHomeWidth - sideWidthLeft - facadeWallDepth / 2, -1)
                 },
                 [WallSideVariants.ERKER_RIGHT]: {
-                    x: depth + erkerDepth / 2 - windowDeltaOffsetX + facadeWallDepth / 2 + 20,
-                    y: height + wallHeight / 2,
+                    x: homeDepth + erkerDepth / 2 - windowDeltaOffsetX + facadeWallDepth / 2 + 20,
+                    y: fundamentHeight + wallHeight / 2,
                     z: getDeltaPosition(sideWidthLeft + facadeWallDepth / 2, 1)
                 },
                 [WallSideVariants.ERKER_FRONT]: {
-                    x: getDeltaPosition(fullDepth - facadeWallDepth / 2, -1),
-                    y: height + wallHeight / 2,
-                    z: fullWidth / 2
+                    x: getDeltaPosition(fullHomeDepth - facadeWallDepth / 2, -1),
+                    y: fundamentHeight + wallHeight / 2,
+                    z: fullHomeWidth / 2
                 },
             },
 

@@ -3,19 +3,24 @@ import {Material} from "~/home/textureMaterial/types";
 
 export namespace Box {
     export interface Config {
-        width: number;
-        height: number;
-        depth: number;
-        materialColor: Material.Colors;
-        materialType: Material.Types
-        texturePath: Material.TexturePaths
-        materialName: Material.Names
-        position: {
+        name: string
+        geometryParams: {
+            width: number;
+            height: number;
+            depth: number;
+        }
+        materialParams: {
+            materialColor: Material.Colors;
+            materialType?: Material.Types
+            texturePath?: Material.TexturePaths
+            materialName?: Material.Names
+        }
+        positionParams: {
             x: number;
             y: number;
             z: number;
         }
-        rotation: {
+        rotationParams: {
             x: number;
             y: number;
             z: number;

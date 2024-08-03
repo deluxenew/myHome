@@ -4,7 +4,7 @@ export namespace Home {
     export interface Config  {
         name: string
         description: string
-        fundamentConfig: Fundament.Config
+        fundament: Fundament.Config
 
     }
 }
