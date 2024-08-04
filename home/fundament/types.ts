@@ -1,5 +1,5 @@
 import type {Box} from "~/home/boxElement/types";
-import type {Group} from "~/home/groupElement/types";
+import type {Group } from "~/home/groupElement/types";
 
 
 export namespace Fundament {
@@ -13,14 +13,15 @@ export namespace Fundament {
         boxes: Box.Config[]
     }
 
-    export interface Fundament3D extends Group.UserData {
-        boxes: Box.Config[]
+
+    export interface Fundament3D extends Group.Instance {
+
     }
 
     export interface Construction {
-        getFundamentGroup3D: () => Box.Element[];
-        getGroup3D: () => Fundament3D
-        boxes: Box.Element[]
+        items: Box.Element[]
+        fundament3D: Group.Instance
+        config: Config
     }
 }
 

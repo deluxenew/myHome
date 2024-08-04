@@ -5,6 +5,11 @@ export namespace Home {
         name: string
         description: string
         fundament: Fundament.Config
+    }
 
+    export interface Construction {
+        config: Config
+        fundamentClass: Fundament.Construction
+        fundament3D: Fundament.Fundament3D
     }
 }

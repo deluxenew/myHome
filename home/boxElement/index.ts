@@ -10,11 +10,12 @@ export default class BoxElement extends THREE.Mesh {
     }
 
     public getElement(): Box.Element {
-        const {geometryParams: {width, height, depth}, materialParams: {materialColor, materialType}} = this.config;
+        const {geometryParams: {width, height, depth}, materialParams: {materialColor, materialType}, positionParams: {x,y,z}} = this.config;
         const geometry = new THREE.BoxGeometry(width, height, depth)
         const materialInstance = new TextureMaterial({materialColor, materialType})
         const material = materialInstance.getMeshStandardMaterial()
-        const mesh = new THREE.Mesh()
+        const mesh = new THREE.Mesh(geometry, material)
+        mesh.position.set(x, y, z)
         return <Box.Element>mesh;
     }
 }

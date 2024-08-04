@@ -1,32 +1,22 @@
-import type {Fundament} from "~/home/fundament/types";
+import type {Fundament } from "~/home/fundament/types";
 import type {Box} from "~/home/boxElement/types";
 import BoxElement from "~/home/boxElement";
-import {Group} from "~/home/groupElement/types";
 import GroupElement from "~/home/groupElement";
 
 export default class FundamentConstruction implements Fundament.Construction {
-    public static readonly NAME = "FundamentGroup";
-    public static readonly TYPE = "Fundament";
     public items: Box.Element[];
-    public group3D: Group.Instance
+    public fundament3D: Fundament.Fundament3D
 
-    private getFundamentBoxes(): Box.Element[] {
+
+    constructor(public config: Fundament.Config) {
+        this.config = config
         const {boxes} = this.config
         this.items = boxes.map((box) => {
             const boxElement = new BoxElement(box)
             return boxElement.getElement()
         });
-        return this.items
-    }
 
-    private getGroup3D() {
-        this.group3D = new GroupElement()
-    }
-
-    constructor(public config: Fundament.Config) {
-        this.config = config
-
-        this.getFundamentBoxes()
-        this.getGroup3D()
+        this.fundament3D = new GroupElement(this.config).group3D
+        this.items.forEach((item) => this.fundament3D.add(item))
     }
 }
