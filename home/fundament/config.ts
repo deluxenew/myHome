@@ -34,7 +34,7 @@ export const fundamentConfig: Fundament.Config  = {
             }
         },
         {
-            name: Fundament.NameVariants.HOME_FUNDAMENT,
+            name: Fundament.NameVariants.ERKER_FUNDAMENT,
             geometryParams: {
                 width: erkerWidth,
                 height: fundamentHeight,
